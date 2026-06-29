@@ -107,39 +107,39 @@ const STORY = {
     seg1: { src:"clips/seg1.mp4?v=2", hud:"原片 0:00–0:49 · 血战·母亲战死·临终遗愿",
       seg:"SEG 1 · The Last Wish", desc:"一场血战。母亲倒在战场上，气息将尽。\n她要你答应：藏好月女神的力量，找个伴侣，像普通狼一样平凡地活下去。",
       dlg:[["母亲","Find a mate, get married… by the grace of the Moon Goddess."]], decision:"d1" },
-    seg2: { src:"clips/seg2.mp4?v=2", hud:"原片 0:49–1:21 · 你的承诺·隐藏力量觉醒",
-      seg:"SEG 2 · The Power Within", desc:"你跪在母亲身边，答应了她。\n可话音刚落，你眼底炸开蓝光，脚下浮起魔法阵，巨狼虚影自月光中显形。月女神的血脉藏不住。",
+    seg2: { src:"clips/seg2.mp4?v=3", hud:"原片 0:49–1:30 · 承诺·力量觉醒·走进婚礼",
+      seg:"SEG 2 · The Promise & The Power", desc:"你跪在母亲身边，答应了她。可话音刚落，你眼底炸开蓝光，脚下浮起魔法阵，月女神的血脉藏不住。\n你还是把力量压了回去，依母亲的话，走到了 Alpha Micah 的婚礼上。",
       dlg:[["Arya","Mother, I promise you."]], decision:"d2" },
-    seg3: { src:"clips/seg3.mp4", hud:"原片 1:21–2:24 · 婚礼 → 一年后 → 背叛揭露",
-      seg:"SEG 3 · The Vow & The Betrayal", desc:"你嫁给了 Alpha Micah Perrin，藏起一切，做了一年温顺的 Luna。\n一年后他回来了——身边是怀孕的 Vera：「我们在战场上相爱…就在你的婚礼那天。」",
-      dlg:[["Vera","We fell in love on the battlefield… on your wedding day."]], decision:"d3" },
-    seg4: { src:"clips/seg4.mp4", hud:"原片 2:24–2:40 · 力量爆发·钩子结尾",
-      seg:"SEG 4 · The Queen Awakens", desc:"银光自你眼底升起——这一次，你没有压它，也没有让它失控。",
-      dlg:[["Arya","You woke a Queen."]], decision:"end" }
+    seg3: { src:"clips/seg3.mp4?v=2", hud:"原片 1:30–2:20 · 婚誓 → 一年后 → 背叛揭露",
+      seg:"SEG 3 · The Vow & The Betrayal", desc:"你和 Micah 在月女神面前结为伴侣。一年里你做着温顺的 Luna，把力量藏得严严实实。\n他从战场回来，身边却带着怀孕的 Vera，说她才是命定 mate、未来的 Luna。",
+      dlg:[["Micah","Arya, this is Vera. She's my fated mate."]], decision:"d3" },
+    seg4: { src:"clips/seg4.mp4?v=2", hud:"原片 2:20–2:40 · 当众清算·女王觉醒(钩子)",
+      seg:"SEG 4 · The Queen Awakens", desc:"你没有失态。你看着 Micah，问他还记不记得在月女神面前发过的誓。\n眼底银光升起，这一次你没有再压回去。",
+      dlg:[["Arya","Do you remember the vow you made on our wedding day?"]], decision:"end" }
   },
   decisions: {
     d1: { q:"母亲战死，临终要你『藏好力量，找个伴侣，平凡地活』。你怎么回应？", replay:"seg1", options:[
       { label:"我答应你——藏起力量，好好活", go:"seg2" },
       { label:"我不嫁人，我要为你复仇", bad:"end_revenge" },
       { label:"我现在就用力量救你", bad:"end_savepower" } ]},
-    d2: { q:"月女神的力量在你眼底炸开——蓝光、魔法阵。藏回去，还是放出来？", replay:"seg2", options:[
-      { label:"压回去，守住对母亲的承诺", go:"seg3" },
-      { label:"放出来，让全族看清你是什么", bad:"end_seentoosoon" },
-      { label:"任它烧穿悲伤，烧光仇敌", bad:"end_griefash" } ]},
-    d3: { q:"Micah 带着怀孕的 Vera 回来，说就在你婚礼那天他们相爱了。你——", replay:"seg3", options:[
-      { label:"让银光升起，但克制——不露收不回的底牌", go:"seg4" },
+    d2: { q:"婚礼上，Alpha Micah 要在月女神面前认你做命定伴侣（mate 与 Luna）。母亲要你找个伴侣、平凡地活。你接受吗？", replay:"seg2", options:[
+      { label:"接受——这正是母亲要你走的路", go:"seg3" },
+      { label:"拒绝。我这辈子只想为母亲复仇", bad:"end_refuse" },
+      { label:"嫁，但当众放出力量，让全族都怕你", bad:"end_flaunt" } ]},
+    d3: { q:"Micah 当着满堂宾客，把怀孕的 Vera 介绍成命定 mate、未来的 Luna——『就像你一样』。你——", replay:"seg3", options:[
+      { label:"稳住，当众问他还记不记得对月女神发过的誓", go:"seg4" },
       { label:"扑上去撕了 Vera", bad:"end_rage" },
-      { label:"崩溃，跪求 Micah 说这不是真的", bad:"end_beg" } ]}
+      { label:"崩溃，跪着求 Micah 说这不是真的", bad:"end_beg" } ]}
   },
   badEnds: {
     end_revenge:{ title:"💀 你葬了她的遗愿", sub:"You buried her wish with her.", replay:"seg1",
       beats:["你转身扑向害死母亲的族群","复仇烧光了你，也烧断了她要你活下去的路","母亲最后的愿望，和她一起埋进了战场"] },
     end_savepower:{ title:"💀 力量救不了死亡", sub:"Power can't outrun death — only expose you.", replay:"seg1",
       beats:["你放出月女神的力量去救她","可死亡不会因力量而退让——她还是走了","你只是把自己的底牌，暴露给了所有敌人"] },
-    end_seentoosoon:{ title:"💀 暴露得太早", sub:"Seen too soon. Now they hunt the Goddess-marked.", replay:"seg2",
-      beats:["你让全族看见了眼底的蓝光与魔法阵","还没有根基，你就成了被觊觎的『月女神之器』","从此追杀你的，不止一头狼"] },
-    end_griefash:{ title:"💀 灰烬，而非王座", sub:"Grief with no leash. Ash, not a throne.", replay:"seg2",
-      beats:["你任由力量烧穿悲伤，焚尽眼前一切","仇敌没了，你的退路与未来也没了","没有缰绳的悲恸，只留下一地灰"] },
+    end_refuse:{ title:"💀 你转身走上了复仇路", sub:"You chose the warpath over her wish.", replay:"seg2",
+      beats:["你拒绝了 Micah，独自去追杀仇敌","没有族群、没有根基，孤狼撑不过一个冬天","母亲要你活下去的愿望，也跟着你一起没了"] },
+    end_flaunt:{ title:"💀 暴露得太早", sub:"Seen too soon. Now they hunt the Goddess-marked.", replay:"seg2",
+      beats:["你在婚礼上放出眼底的蓝光与魔法阵","根基未稳，你就成了人人想夺的『月女神之器』","从此盯上你的，远不止一头狼"] },
     end_rage:{ title:"💀 暴怒，而非清算", sub:"Rage, not a reckoning. Beneath a Queen.", replay:"seg3",
       beats:["你扑向 Vera，被 Micah 一把掀开","满族哄笑——不过是个善妒的弃妇","你失了体面，也失了翻盘为王的资格"] },
     end_beg:{ title:"💀 你跪求了背叛你的人", sub:"You begged the man who betrayed you.", replay:"seg3",
