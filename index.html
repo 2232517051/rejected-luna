@@ -104,11 +104,11 @@
 /* 正确路径已接入原片(clips/segN.mp4); 坏结局为文字占位, 待生成视频后给每个 badEnd 加 video 字段即可自动播放 */
 const STORY = {
   segments: {
-    seg1: { src:"clips/seg1.mp4?v=2", hud:"原片 0:00–0:49 · 血战·母亲战死·临终遗愿",
-      seg:"SEG 1 · The Last Wish", desc:"一场血战。母亲倒在战场上，气息将尽。\n她要你答应：藏好月女神的力量，找个伴侣，像普通狼一样平凡地活下去。",
-      dlg:[["母亲","Find a mate, get married… by the grace of the Moon Goddess."]], decision:"d1" },
-    seg2: { src:"clips/seg2.mp4?v=6", hud:"原片 0:49–1:49 · 立誓·力量觉醒·婚礼·出征在即",
-      seg:"SEG 2 · The Vow, The Power, The Wedding", desc:"妈在你怀里断了气，你许愿要找 mate、结婚、生子。话音一落，月女神的力量在你身上炸开——满林子只有狼看见。\n你把这秘密压进心底，嫁给了 Alpha Micah，他当众认你做 Luna。可喜事没几天，他就要奔赴战场，临走说：等他回来，你们就再不分开。",
+    seg1: { src:"clips/seg1.mp4?v=3", hud:"原片 0:00–0:46 · 血战·母亲战死·『Arya! Promise me!』",
+      seg:"SEG 1 · The Last Wish", desc:"一场血战。母亲倒在战场上，气息将尽。\n她攥住你的手，要你答应：藏好月女神的力量，找个伴侣，像普通狼一样活下去。",
+      dlg:[["母亲","Arya! Promise me!"]], decision:"d1" },
+    seg2: { src:"clips/seg2.mp4?v=7", hud:"原片 0:46–1:49 · 应下遗愿·力量觉醒·婚礼·出征在即",
+      seg:"SEG 2 · The Vow, The Power, The Wedding", desc:"你含着泪应下了：找 mate、结婚、生子，凭月女神保佑。话音一落，妈在你怀里断了气——月女神的力量随之在你身上炸开，满林子只有狼看见。\n你把这秘密压进心底，嫁给了 Alpha Micah，他当众认你做 Luna。可喜事没几天，他就要奔赴战场，临走说：等他回来，你们就再不分开。",
       dlg:[["Micah","When I return from the battlefield, we will never be apart again!"]], decision:"d2" },
     seg3: { src:"clips/seg3.mp4?v=5", hud:"原片 1:49–2:20 · 守望一年 → Vera 登场 → 背叛",
       seg:"SEG 3 · The Betrayal", desc:"你留了下来，替他守着家、守着族，等他平安归来。\n一年过去，他回来了——身边却带着怀孕的 Vera，说她才是他命定的 mate、未来的 Luna。",
@@ -118,18 +118,18 @@ const STORY = {
       dlg:[["Arya","Do you remember the vow you made on our wedding day?"]], decision:"end" }
   },
   decisions: {
-    d1: { q:"母亲战死，临终要你『藏好力量，找个伴侣，平凡地活』。你怎么回应？", replay:"seg1", options:[
+    d1: { q:"母亲在你怀里气息将尽，最后用力攥住你：『答应我！』——藏好力量，找个伴侣，像普通狼一样活下去。你——", replay:"seg1", options:[
       { label:"我答应你——藏起力量，好好活", go:"seg2" },
       { label:"我不嫁人，我要为你复仇", bad:"end_revenge" },
       { label:"我现在就用力量救你", bad:"end_savepower" } ]},
-    d2: { q:"Micah 要上战场了，说等他回来就再不分开。你的力量本能护他周全——可一旦用出来，就再也藏不住。你怎么回应？", replay:"seg2", options:[
+    d2: { q:"Micah 要上战场了，说等他回来就再不分开。临行前，部落的人看向你。你——", replay:"seg2", options:[
       { label:"留下来好好当 Luna，等他平安回来", go:"seg3" },
       { label:"我跟你并肩上战场，亮出力量", bad:"end_warexpose" },
-      { label:"用力量拦住他，不让他走", bad:"end_warstop" } ]},
+      { label:"当众宣布：他不在，部落往后听你的", bad:"end_powergrab" } ]},
     d3: { q:"Micah 当着满堂宾客，把怀孕的 Vera 介绍成命定 mate、未来的 Luna——『就像你一样』。你——", replay:"seg3", options:[
       { label:"稳住，当众问他还记不记得对月女神发过的誓", go:"seg4" },
-      { label:"扑上去撕了 Vera", bad:"end_rage" },
-      { label:"崩溃，跪着求 Micah 说这不是真的", bad:"end_beg" } ]}
+      { label:"默默离开部落，把 Luna 的位置让出去", bad:"end_leave" },
+      { label:"杀了 Micah，然后被卫兵当场拿下", bad:"end_killmate" } ]}
   },
   badEnds: {
     end_revenge:{ title:"💀 你葬了她的遗愿", sub:"You buried her wish with her.", replay:"seg1",
@@ -138,12 +138,12 @@ const STORY = {
       beats:["你放出月女神的力量去救她","可死亡不会因力量而退让——她还是走了","你只是把自己的底牌，暴露给了所有敌人"] },
     end_warexpose:{ title:"💀 战场上藏不住了", sub:"On the battlefield, the secret burned away.", replay:"seg2",
       beats:["你跟着 Micah 上了战场，蓝光一出，敌我都看呆了。","仗是赢了，可全大陆都知道月女神的血脉还活着。","从那天起，想抓你的人比敌军还多。"] },
-    end_warstop:{ title:"💀 你没拦住他，先失了控", sub:"She reached to stop him and lost herself.", replay:"seg2",
-      beats:["你伸手去拦，力量却顺着冲了出来。","魔法阵炸开，Micah 和满院宾客全被掀翻。","他看你的眼神变了——从那天起，他怕你。"] },
-    end_rage:{ title:"💀 暴怒，而非清算", sub:"Rage, not a reckoning. Beneath a Queen.", replay:"seg3",
-      beats:["你扑向 Vera，被 Micah 一把掀开","满族哄笑——不过是个善妒的弃妇","你失了体面，也失了翻盘为王的资格"] },
-    end_beg:{ title:"💀 你跪求了背叛你的人", sub:"You begged the man who betrayed you.", replay:"seg3",
-      beats:["你抓住 Micah 哀求这不是真的","他甩开你的手，Vera 在一旁笑","乞怜把你钉死在弃子的位置上"] }
+    end_powergrab:{ title:"💀 话说得太满", sub:"She grabbed for power too soon.", replay:"seg2",
+      beats:["你当众宣布：Micah 不在，部落往后听你的。","可他前脚刚走，没人真把你的话当令，长老当场就驳了回来。","等他回来，族里都说你急着抢位子，他也开始防着你。"] },
+    end_leave:{ title:"💀 你把位置让了出去", sub:"She walked away and let it go.", replay:"seg3",
+      beats:["你什么都没说，转身离开了部落。","Vera 顺理成章接了 Luna 的位置，没人再提起你。","你走得干净，可这一走，翻盘的机会也没了。"] },
+    end_killmate:{ title:"💀 同归于尽", sub:"She killed him, and the guards killed her.", replay:"seg3",
+      beats:["你抄起刀冲上去，Micah 倒在喜宴的血泊里。","卫兵一拥而上，把你当场拿下。","你死在他后头，那个秘密也跟着进了土。"] }
   }
 };
 
