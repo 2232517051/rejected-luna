@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Rejected Luna Is the Alpha Queen · EP1 互动 Demo</title>
+<style>
+  :root{ --gold:#e8b44a; --amber:#ff9d2e; --bad:#e85a6b; --silver:#9fd0ff; }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:#05080d;font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#eaf1fb;-webkit-tap-highlight-color:transparent}
+  #app{height:100%;display:flex;align-items:center;justify-content:center}
+  #frame{position:relative;height:min(96vh,860px);aspect-ratio:9/16;background:#0a0e16;border-radius:18px;overflow:hidden;box-shadow:0 0 0 1px #233247,0 18px 60px rgba(0,0,0,.6)}
+  video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000;display:none}
+  video.on{display:block}
+
+  .layer{position:absolute;inset:0;display:none;flex-direction:column;justify-content:flex-end;
+         background:linear-gradient(180deg,rgba(5,9,16,.15) 30%,rgba(4,8,15,.6) 60%,rgba(3,6,12,.95) 100%);
+         padding:22px 18px 26px;gap:12px}
+  .layer.show{display:flex}
+  #hud{position:absolute;top:12px;left:14px;right:14px;font-size:11px;color:#8aa0bd;background:rgba(3,6,12,.55);padding:4px 10px;border-radius:10px;z-index:5}
+
+  .scene{justify-content:flex-end}
+  .scene .seg{color:var(--gold);font-size:12px;letter-spacing:3px;margin-bottom:4px}
+  .scene .desc{font-size:15px;line-height:1.6;color:#dce7f5;background:rgba(0,0,0,.4);border-left:3px solid var(--gold);border-radius:8px;padding:12px 14px;white-space:pre-line}
+  .scene .dlg{font-size:14px;color:#ffe9b0;line-height:1.6;margin:2px 0}
+  .scene .dlg .sp{color:#9fc0e6;margin-right:6px}
+
+  .qbar{position:absolute;top:44px;left:0;right:0;padding:14px 18px;font-size:14px;color:#dbe7f6;
+        background:linear-gradient(180deg,rgba(3,6,12,.82),rgba(3,6,12,0))}
+  .qbar b{color:var(--gold)}
+  .choices{display:flex;flex-direction:column;gap:11px}
+  .btn{appearance:none;border:1px solid #3a4f6b;background:rgba(18,30,46,.88);color:#eaf1fb;
+       font-size:15px;line-height:1.35;padding:13px 15px;border-radius:12px;text-align:left;cursor:pointer;transition:.12s}
+  .btn:hover{border-color:var(--gold);background:rgba(30,44,64,.96)}
+  .btn .k{color:var(--amber);font-weight:bold;margin-right:8px}
+  .cta{align-self:center;margin-top:6px;border:1px solid var(--gold);background:rgba(232,180,74,.16);color:#fff;font-size:16px;padding:12px 30px;border-radius:28px;cursor:pointer}
+  .cta:hover{background:rgba(232,180,74,.3)}
+  .hint{align-self:center;color:#7892ab;font-size:11.5px}
+
+  .center{justify-content:center;align-items:center;text-align:center;background:radial-gradient(120% 80% at 50% 30%,rgba(28,40,62,.62),rgba(3,6,12,.97))}
+  .center h1{margin:0 0 4px;font-size:24px;letter-spacing:1px;color:#fff}
+  .center .sub{color:var(--gold);font-size:12px;letter-spacing:4px;margin-bottom:14px}
+  .center p{margin:5px 0;color:#a8bdd6;font-size:14px;max-width:92%}
+
+  .bad{justify-content:center;background:linear-gradient(160deg,rgba(58,22,32,.96),rgba(8,10,18,.98))}
+  .bad .tag{align-self:center;color:var(--bad);font-size:12px;letter-spacing:3px;margin-bottom:6px}
+  .bad h2{align-self:center;margin:0 0 6px;font-size:22px;color:#ffd6dc;text-align:center}
+  .bad .sub{align-self:center;color:var(--silver);font-size:14px;font-style:italic;margin:0 0 14px;text-align:center}
+  .bad .beats{background:rgba(0,0,0,.32);border-left:3px solid var(--bad);border-radius:8px;padding:11px 13px;margin:0 0 14px}
+  .bad .beats div{font-size:13.5px;color:#f0d9dd;line-height:1.55;margin:3px 0}
+  .bad .row{display:flex;gap:10px;justify-content:center}
+  .bad .row button{border:1px solid #6a3a44;background:rgba(58,22,32,.6);color:#ffd6dc;font-size:14px;padding:10px 16px;border-radius:22px;cursor:pointer}
+  .bad .row button.primary{border-color:var(--gold);color:#fff;background:rgba(232,180,74,.16)}
+</style>
+</head>
+<body>
+<div id="app"><div id="frame">
+  <video id="vid" playsinline preload="auto"></video>
+  <div id="hud" style="display:none"></div>
+  <div class="qbar" id="qbar" style="display:none"></div>
+
+  <div class="layer center show" id="startLayer">
+    <h1>Rejected Luna Is the Alpha Queen</h1>
+    <div class="sub">EP1 · 互动短剧 DEMO</div>
+    <p>你是 <b style="color:#fff">Arya</b>——月女神血脉的隐藏强者。<br>母亲战死时要你藏起力量、平凡地活。</p>
+    <p>你嫁给了 Alpha <b>Micah</b>。一年后，他带着怀孕的 <b>Vera</b> 回来。</p>
+    <p style="color:#7d93ad;font-size:12.5px">正确路径＝原片(已接入)；选错走坏结局(文字占位，待生成视频)。</p>
+    <button class="cta" id="startBtn">▶ 开始</button>
+  </div>
+
+  <div class="layer scene" id="sceneLayer">
+    <div class="seg" id="sceneSeg"></div>
+    <div class="desc" id="sceneDesc"></div>
+    <div id="sceneDlg"></div>
+    <button class="cta" id="sceneNext">继续 ▶</button>
+  </div>
+
+  <div class="layer" id="choiceLayer">
+    <div class="choices" id="choices"></div>
+    <div class="hint">选对续播原片 · 选错走坏结局</div>
+  </div>
+
+  <div class="layer bad" id="badLayer">
+    <div class="tag">BAD END</div>
+    <h2 id="badTitle"></h2>
+    <div class="sub" id="badSub"></div>
+    <div class="beats" id="badBeats"></div>
+    <div class="row">
+      <button class="primary" id="badRetry">↻ 重开本节点</button>
+      <button id="badRestart">⟲ 从头开始</button>
+    </div>
+  </div>
+
+  <div class="layer center" id="endLayer">
+    <h1 style="font-size:21px">👑 The Queen Rises</h1>
+    <p style="color:var(--gold);font-style:italic">"You rejected a Luna. You woke a Queen."</p>
+    <p>银光在你眼底亮起，没有失控。背叛你的人还不知道——<br>他们唤醒的是月女神选中的女王。</p>
+    <p style="color:#7d93ad;font-size:12.5px">—— 待续 EP2 ——</p>
+    <button class="cta" id="endBtn">⟲ 再玩一次</button>
+  </div>
+</div></div>
+
+<script>
+/* 正确路径已接入原片(clips/segN.mp4); 坏结局为文字占位, 待生成视频后给每个 badEnd 加 video 字段即可自动播放 */
+const STORY = {
+  segments: {
+    seg1: { src:"clips/seg1.mp4", hud:"原片 0:00–0:58 · 血战·母亲战死·临终遗愿",
+      seg:"SEG 1 · The Last Wish", desc:"一场血战。母亲倒在战场上，气息将尽。\n她要你答应：藏好月女神的力量，找个伴侣，像普通狼一样平凡地活下去。",
+      dlg:[["母亲","Find a mate, get married… by the grace of the Moon Goddess."]], decision:"d1" },
+    seg2: { src:"clips/seg2.mp4", hud:"原片 0:58–1:21 · 隐藏力量觉醒(月女神血脉)",
+      seg:"SEG 2 · The Power Within", desc:"你答应了她。\n可悲恸之下，你眼底炸开蓝光，脚下浮起魔法阵，巨狼虚影自月光中显形——月女神的血脉藏不住了。",
+      dlg:[["Arya","Mother, I promise you."]], decision:"d2" },
+    seg3: { src:"clips/seg3.mp4", hud:"原片 1:21–2:24 · 婚礼 → 一年后 → 背叛揭露",
+      seg:"SEG 3 · The Vow & The Betrayal", desc:"你嫁给了 Alpha Micah Perrin，藏起一切，做了一年温顺的 Luna。\n一年后他回来了——身边是怀孕的 Vera：「我们在战场上相爱…就在你的婚礼那天。」",
+      dlg:[["Vera","We fell in love on the battlefield… on your wedding day."]], decision:"d3" },
+    seg4: { src:"clips/seg4.mp4", hud:"原片 2:24–2:40 · 力量爆发·钩子结尾",
+      seg:"SEG 4 · The Queen Awakens", desc:"银光自你眼底升起——这一次，你没有压它，也没有让它失控。",
+      dlg:[["Arya","You woke a Queen."]], decision:"end" }
+  },
+  decisions: {
+    d1: { q:"母亲战死，临终要你『藏好力量，找个伴侣，平凡地活』。你怎么回应？", replay:"seg1", options:[
+      { label:"我答应你——藏起力量，好好活", go:"seg2" },
+      { label:"我不嫁人，我要为你复仇", bad:"end_revenge" },
+      { label:"我现在就用力量救你", bad:"end_savepower" } ]},
+    d2: { q:"月女神的力量在你眼底炸开——蓝光、魔法阵。藏回去，还是放出来？", replay:"seg2", options:[
+      { label:"压回去，守住对母亲的承诺", go:"seg3" },
+      { label:"放出来，让全族看清你是什么", bad:"end_seentoosoon" },
+      { label:"任它烧穿悲伤，烧光仇敌", bad:"end_griefash" } ]},
+    d3: { q:"Micah 带着怀孕的 Vera 回来，说就在你婚礼那天他们相爱了。你——", replay:"seg3", options:[
+      { label:"让银光升起，但克制——不露收不回的底牌", go:"seg4" },
+      { label:"扑上去撕了 Vera", bad:"end_rage" },
+      { label:"崩溃，跪求 Micah 说这不是真的", bad:"end_beg" } ]}
+  },
+  badEnds: {
+    end_revenge:{ title:"💀 你葬了她的遗愿", sub:"You buried her wish with her.", replay:"seg1",
+      beats:["你转身扑向害死母亲的族群","复仇烧光了你，也烧断了她要你活下去的路","母亲最后的愿望，和她一起埋进了战场"] },
+    end_savepower:{ title:"💀 力量救不了死亡", sub:"Power can't outrun death — only expose you.", replay:"seg1",
+      beats:["你放出月女神的力量去救她","可死亡不会因力量而退让——她还是走了","你只是把自己的底牌，暴露给了所有敌人"] },
+    end_seentoosoon:{ title:"💀 暴露得太早", sub:"Seen too soon. Now they hunt the Goddess-marked.", replay:"seg2",
+      beats:["你让全族看见了眼底的蓝光与魔法阵","还没有根基，你就成了被觊觎的『月女神之器』","从此追杀你的，不止一头狼"] },
+    end_griefash:{ title:"💀 灰烬，而非王座", sub:"Grief with no leash. Ash, not a throne.", replay:"seg2",
+      beats:["你任由力量烧穿悲伤，焚尽眼前一切","仇敌没了，你的退路与未来也没了","没有缰绳的悲恸，只留下一地灰"] },
+    end_rage:{ title:"💀 暴怒，而非清算", sub:"Rage, not a reckoning. Beneath a Queen.", replay:"seg3",
+      beats:["你扑向 Vera，被 Micah 一把掀开","满族哄笑——不过是个善妒的弃妇","你失了体面，也失了翻盘为王的资格"] },
+    end_beg:{ title:"💀 你跪求了背叛你的人", sub:"You begged the man who betrayed you.", replay:"seg3",
+      beats:["你抓住 Micah 哀求这不是真的","他甩开你的手，Vera 在一旁笑","乞怜把你钉死在弃子的位置上"] }
+  }
+};
+
+const vid=document.getElementById('vid'), hud=document.getElementById('hud'), qbar=document.getElementById('qbar');
+const L={start:'startLayer',scene:'sceneLayer',choice:'choiceLayer',bad:'badLayer',end:'endLayer'};
+function hideAll(){Object.values(L).forEach(id=>document.getElementById(id).classList.remove('show'));}
+function show(n){hideAll();document.getElementById(L[n]).classList.add('show');}
+let current=null, mode='seg', curBad=null;
+
+function playSegment(id){
+  const s=STORY.segments[id]; current=id;
+  qbar.style.display='none'; hud.style.display='block'; hud.textContent=s.hud;
+  if(s.src){ mode='seg'; vid.classList.add('on'); hideAll(); vid.src=s.src; vid.currentTime=0; const p=vid.play(); if(p&&p.catch)p.catch(()=>{}); return; }
+  vid.classList.remove('on');
+  document.getElementById('sceneSeg').textContent=s.seg||'';
+  document.getElementById('sceneDesc').innerText=s.desc||'';
+  document.getElementById('sceneDlg').innerHTML=(s.dlg||[]).map(([sp,l])=>`<div class="dlg"><span class="sp">${sp}：</span>${l}</div>`).join('');
+  show('scene');
+}
+document.getElementById('sceneNext').onclick=()=>advance();
+function advance(){ const s=STORY.segments[current]; if(!s)return; if(s.decision==='end'){show('end');return;} showDecision(s.decision); }
+vid.addEventListener('ended',()=>{ if(mode==='badvideo'){ showBadCard(curBad); return; } advance(); });
+
+function showDecision(id){
+  const d=STORY.decisions[id]; hud.style.display='none';
+  qbar.style.display='block'; qbar.innerHTML=`<b>▶ 选择</b> · ${d.q}`;
+  const box=document.getElementById('choices'); box.innerHTML='';
+  ['A','B','C'].forEach((k,i)=>{ const o=d.options[i]; if(!o)return;
+    const b=document.createElement('button'); b.className='btn';
+    b.innerHTML=`<span class="k">${k}</span>${o.label}`;
+    b.onclick=()=>{ o.go?playSegment(o.go):showBad(o.bad); };
+    box.appendChild(b); });
+  show('choice');
+}
+function showBad(id){
+  const e=STORY.badEnds[id];
+  if(e.video){ mode='badvideo'; curBad=id; vid.classList.add('on'); hideAll(); qbar.style.display='none'; hud.style.display='none'; vid.src=e.video; vid.currentTime=0; const p=vid.play(); if(p&&p.catch)p.catch(()=>{}); return; }
+  showBadCard(id);
+}
+function showBadCard(id){
+  const e=STORY.badEnds[id]; vid.classList.remove('on'); qbar.style.display='none'; hud.style.display='none';
+  document.getElementById('badTitle').textContent=e.title;
+  document.getElementById('badSub').textContent='「'+e.sub+'」';
+  document.getElementById('badBeats').innerHTML=e.beats.map(t=>`<div>· ${t}</div>`).join('');
+  document.getElementById('badRetry').onclick=()=>playSegment(e.replay);
+  document.getElementById('badRestart').onclick=()=>playSegment('seg1');
+  try{vid.pause();}catch(_){}
+  show('bad');
+}
+document.getElementById('startBtn').onclick=()=>playSegment('seg1');
+document.getElementById('endBtn').onclick=()=>playSegment('seg1');
+</script>
+</body>
+</html>
