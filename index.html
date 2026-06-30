@@ -64,7 +64,7 @@
     <div class="sub">EP1 · 互动短剧 DEMO</div>
     <p>你是 <b style="color:#fff">Arya</b>——月女神血脉的隐藏强者。<br>母亲战死时要你藏起力量、平凡地活。</p>
     <p>你嫁给了 Alpha <b>Micah</b>。一年后，他带着怀孕的 <b>Vera</b> 回来。</p>
-    <p style="color:#7d93ad;font-size:12.5px">正确路径＝原片(已接入)；选错走坏结局(文字占位，待生成视频)。</p>
+    <p style="color:#7d93ad;font-size:12.5px">正确路径＝原片；选错也有真·坏结局视频。</p>
     <button class="cta" id="startBtn">▶ 开始</button>
   </div>
 
@@ -101,7 +101,7 @@
 </div></div>
 
 <script>
-/* 正确路径已接入原片(clips/segN.mp4); 坏结局为文字占位, 待生成视频后给每个 badEnd 加 video 字段即可自动播放 */
+/* 正确路径=原片(clips/segN.mp4); 坏结局已接入真视频(clips/bad_*.mp4): 播放完落到文字卡+重选 */
 const STORY = {
   segments: {
     seg1: { src:"clips/seg1.mp4?v=3", hud:"原片 0:00–0:46 · 血战·母亲战死·『Arya! Promise me!』",
@@ -129,21 +129,21 @@ const STORY = {
     d3: { q:"Micah 当着满堂宾客，把怀孕的 Vera 介绍成命定 mate、未来的 Luna——『就像你一样』。你——", replay:"seg3", options:[
       { label:"稳住，当众问他还记不记得对月女神发过的誓", go:"seg4" },
       { label:"默默离开部落，把 Luna 的位置让出去", bad:"end_leave" },
-      { label:"杀了 Micah，然后被卫兵当场拿下", bad:"end_killmate" } ]}
+      { label:"压不住怒火，当场放出力量扑向他", bad:"end_killmate" } ]}
   },
   badEnds: {
-    end_revenge:{ title:"💀 你葬了她的遗愿", sub:"You buried her wish with her.", replay:"seg1",
-      beats:["你转身扑向害死母亲的族群","复仇烧光了你，也烧断了她要你活下去的路","母亲最后的愿望，和她一起埋进了战场"] },
-    end_savepower:{ title:"💀 力量救不了死亡", sub:"Power can't outrun death — only expose you.", replay:"seg1",
-      beats:["你放出月女神的力量去救她","可死亡不会因力量而退让——她还是走了","你只是把自己的底牌，暴露给了所有敌人"] },
-    end_warexpose:{ title:"💀 战场上藏不住了", sub:"On the battlefield, the secret burned away.", replay:"seg2",
-      beats:["你跟着 Micah 上了战场，蓝光一出，敌我都看呆了。","仗是赢了，可全大陆都知道月女神的血脉还活着。","从那天起，想抓你的人比敌军还多。"] },
-    end_powergrab:{ title:"💀 话说得太满", sub:"She grabbed for power too soon.", replay:"seg2",
+    end_revenge:{ title:"💀 你葬了她的遗愿", sub:"You buried her wish with her.", replay:"seg1", video:"clips/bad_revenge.mp4",
+      beats:["你转身扑向害死母亲的那群狼。","从此你只剩复仇，再没顾过自己的命。","母亲要你藏好力量、好好活——这话你没听。"] },
+    end_savepower:{ title:"💀 力量救不了死亡", sub:"Power can't outrun death — only expose you.", replay:"seg1", video:"clips/bad_savepower.mp4",
+      beats:["你放出月女神的力量去救她。","可她的伤太重，没能拉回来，还是走了。","你白白把这秘密，当众暴露给了敌人。"] },
+    end_warexpose:{ title:"💀 你藏不住了", sub:"The secret burned away in front of everyone.", replay:"seg2", video:"clips/bad_warexpose.mp4",
+      beats:["你当众说要随 Micah 出征，话没说完，蓝光就从掌心冒了出来。","满场的人都看见了，Micah 也僵在原地。","月女神血脉还活着的消息，当晚就传遍各族。"] },
+    end_powergrab:{ title:"💀 话说得太满", sub:"She grabbed for power too soon.", replay:"seg2", video:"clips/bad_powergrab.mp4",
       beats:["你当众宣布：Micah 不在，部落往后听你的。","可他前脚刚走，没人真把你的话当令，长老当场就驳了回来。","等他回来，族里都说你急着抢位子，他也开始防着你。"] },
-    end_leave:{ title:"💀 你把位置让了出去", sub:"She walked away and let it go.", replay:"seg3",
-      beats:["你什么都没说，转身离开了部落。","Vera 顺理成章接了 Luna 的位置，没人再提起你。","你走得干净，可这一走，翻盘的机会也没了。"] },
-    end_killmate:{ title:"💀 同归于尽", sub:"She killed him, and the guards killed her.", replay:"seg3",
-      beats:["你抄起刀冲上去，Micah 倒在喜宴的血泊里。","卫兵一拥而上，把你当场拿下。","你死在他后头，那个秘密也跟着进了土。"] }
+    end_leave:{ title:"💀 你把位置让了出去", sub:"She walked away and let it go.", replay:"seg3", video:"clips/bad_leave.mp4",
+      beats:["你把 Luna 的位置让了出去，只说了句『拿去吧，我不争了』。","Vera 顺理成章接了位置，没人再提起你。","你走得干净，可翻盘的机会也没了。"] },
+    end_killmate:{ title:"💀 你失控了", sub:"She lost control. They pinned her down.", replay:"seg3", video:"clips/bad_killmate.mp4",
+      beats:["怒火压不住，你的力量在大殿里炸了开。","Micah 冲你喊『住手』，几个卫兵已经扑了上来。","他们把你死死按在地上，秘密再也藏不住了。"] }
   }
 };
 
